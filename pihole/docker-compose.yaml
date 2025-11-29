@@ -1,0 +1,29 @@
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    hostname: pihole
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "80:80/tcp"
+      - "443:443/tcp"
+    environment:
+      TZ: 'Europe/London'
+      # Change this to your secure password
+      FTLCONF_webserver_api_password: 'correct horse battery staple'
+      FTLCONF_dns_listeningMode: 'ALL'
+    volumes:
+      # ${HOME} defaults to the current user's home directory
+      - '${HOME}/volume/pihole/etc:/etc/pihole'
+      - '${HOME}/volume/pihole/dnsmasq:/etc/dnsmasq.d'
+    cap_add:
+      - NET_ADMIN
+      - SYS_TIME
+      - SYS_NICE
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+    restart: unless-stopped
