@@ -11,8 +11,8 @@
   - **OS:** OpenWrt
 
 ### Switch
-- **TP-Link TL-SG605E** - Smart Managed Ethernet Switch
-  - 5 Ports RJ45 Gigabit
+- **TP-Link TL-SG608E** - Smart Managed Ethernet Switch
+  - 8 Ports RJ45 Gigabit
 
 ---
 
