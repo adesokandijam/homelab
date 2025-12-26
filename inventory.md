@@ -39,7 +39,6 @@
   - CPU: AMD Ryzen 7 5825U
   - RAM: 32GB (upgraded from 16GB)
   - Storage: 1TB SSD (512GB original + 512GB added)
-  - Region: Europe
 
 ### Workstation
 - **HP Z440**
@@ -49,7 +48,7 @@
   - GPU: NVIDIA RTX 3060
   - AI Accelerator: NVIDIA Tesla P4
   - OS: Windows 10
-  - Purpose: Gaming, Video Editing, AI Workloads
+  - Purpose: AI Workloads and DB on K8s
 
 ---
 
