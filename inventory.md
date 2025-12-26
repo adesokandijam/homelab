@@ -45,7 +45,7 @@
 - **HP Z440**
   - CPU: Intel 12-Core
   - RAM: 48GB
-  - Storage: 240GB SSD
+  - Storage: 240GB SSD + PCI to M2.NVME 512GB Drive
   - GPU: NVIDIA RTX 3060
   - AI Accelerator: NVIDIA Tesla P4
   - OS: Windows 10
