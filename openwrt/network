@@ -1,0 +1,87 @@
+config interface 'loopback'
+	option device 'lo'
+	option proto 'static'
+	option ipaddr '127.0.0.1'
+	option netmask '255.0.0.0'
+
+config globals 'globals'
+	option ula_prefix 'fd53:2857:af97::/48'
+	option packet_steering '1'
+
+# WAN Interface (Built-in RPi Ethernet)
+config interface 'wan'
+	option device 'eth0'
+	option proto 'dhcp'
+
+config interface 'wan6'
+	option device 'eth0'
+	option proto 'dhcpv6'
+
+# Bridge Device with VLAN Support using eth1 (RTL8125 2.5GbE)
+config device
+	option name 'br-lan'
+	option type 'bridge'
+	list ports 'eth1'
+	option vlan_filtering '1'
+
+# Base LAN (Untagged)
+config interface 'lan'
+	option device 'br-lan.1'
+	option proto 'static'
+	option ipaddr '192.168.2.1'
+	option netmask '255.255.255.0'
+	option ip6assign '60'
+
+# VLAN 1 - Base LAN (Untagged)
+config bridge-vlan
+	option device 'br-lan'
+	option vlan '1'
+	list ports 'eth1:u*'
+
+# VLAN 10 - Management
+config bridge-vlan
+	option device 'br-lan'
+	option vlan '10'
+	list ports 'eth1:t'
+
+config interface 'mgmt'
+	option device 'br-lan.10'
+	option proto 'static'
+	option ipaddr '192.168.10.1'
+	option netmask '255.255.255.0'
+
+# VLAN 20 - Operations
+config bridge-vlan
+	option device 'br-lan'
+	option vlan '20'
+	list ports 'eth1:t'
+
+config interface 'ops'
+	option device 'br-lan.20'
+	option proto 'static'
+	option ipaddr '192.168.20.1'
+	option netmask '255.255.255.0'
+
+# VLAN 30 - Kubernetes
+config bridge-vlan
+	option device 'br-lan'
+	option vlan '30'
+	list ports 'eth1:t'
+
+config interface 'k8s'
+	option device 'br-lan.30'
+	option proto 'static'
+	option ipaddr '192.168.30.1'
+	option netmask '255.255.255.0'
+
+# VLAN 50 - DMZ
+config bridge-vlan
+	option device 'br-lan'
+	option vlan '50'
+	list ports 'eth1:t'
+
+config interface 'dmz'
+	option device 'br-lan.50'
+	option proto 'static'
+	option ipaddr '192.168.50.1'
+	option netmask '255.255.255.0'

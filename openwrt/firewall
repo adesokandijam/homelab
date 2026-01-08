@@ -1,0 +1,219 @@
+config defaults
+	option input 'REJECT'
+	option output 'ACCEPT'
+	option forward 'REJECT'
+	option syn_flood '1'
+
+config zone
+	option name 'wan'
+	list network 'wan'
+	list network 'wan6'
+	option input 'REJECT'
+	option output 'ACCEPT'
+	option forward 'REJECT'
+	option masq '1'
+	option mtu_fix '1'
+
+config zone
+	option name 'lan'
+	list network 'lan'
+	option input 'ACCEPT'
+	option output 'ACCEPT'
+	option forward 'ACCEPT'
+
+config zone
+	option name 'trusted'
+	list network 'mgmt'
+	list network 'ops'
+	list network 'k8s'
+	option input 'ACCEPT'
+	option output 'ACCEPT'
+	option forward 'ACCEPT'
+
+config zone
+	option name 'dmz'
+	list network 'dmz'
+	option input 'REJECT'
+	option output 'ACCEPT'
+	option forward 'REJECT'
+
+config forwarding
+	option src 'lan'
+	option dest 'wan'
+
+config forwarding
+	option src 'trusted'
+	option dest 'wan'
+
+config forwarding
+	option src 'dmz'
+	option dest 'wan'
+
+config forwarding
+	option src 'trusted'
+	option dest 'dmz'
+
+config forwarding
+	option src 'lan'
+	option dest 'trusted'
+
+config forwarding
+	option src 'lan'
+	option dest 'dmz'
+
+config rule
+	option name 'Allow-SSH-From-My-Laptop'
+	option src 'wan'
+	option src_ip '192.168.55.201'
+	option proto 'tcp'
+	option target 'ACCEPT'
+
+config rule
+	option name 'Allow-DMZ-DNS'
+	option src 'dmz'
+	option dest_port '53'
+	option proto 'tcp udp'
+	option target 'ACCEPT'
+
+config rule
+	option name 'Allow-DMZ-DHCP'
+	option src 'dmz'
+	option src_port '67-68'
+	option dest_port '67-68'
+	option proto 'udp'
+	option target 'ACCEPT'
+
+config rule
+	option name 'Allow-DHCP-Renew'
+	option src 'wan'
+	option proto 'udp'
+	option dest_port '68'
+	option target 'ACCEPT'
+	option family 'ipv4'
+
+config rule
+	option name 'Allow-Ping'
+	option src 'wan'
+	option proto 'icmp'
+	option icmp_type 'echo-request'
+	option family 'ipv4'
+	option target 'ACCEPT'
+
+config rule
+	option name 'Allow-IGMP'
+	option src 'wan'
+	option proto 'igmp'
+	option family 'ipv4'
+	option target 'ACCEPT'
+
+config rule
+	option name 'Allow-DHCPv6'
+	option src 'wan'
+	option proto 'udp'
+	option dest_port '546'
+	option family 'ipv6'
+	option target 'ACCEPT'
+
+config rule
+	option name 'Allow-MLD'
+	option src 'wan'
+	option proto 'icmp'
+	option src_ip 'fe80::/10'
+	option icmp_type '130/0 131/0 132/0 143/0'
+	option family 'ipv6'
+	option target 'ACCEPT'
+
+config rule
+	option name 'Allow-ICMPv6-Input'
+	option src 'wan'
+	option proto 'icmp'
+	list icmp_type 'echo-request'
+	list icmp_type 'echo-reply'
+	list icmp_type 'destination-unreachable'
+	list icmp_type 'packet-too-big'
+	list icmp_type 'time-exceeded'
+	list icmp_type 'bad-header'
+	list icmp_type 'unknown-header-type'
+	list icmp_type 'router-solicitation'
+	list icmp_type 'neighbour-solicitation'
+	list icmp_type 'router-advertisement'
+	list icmp_type 'neighbour-advertisement'
+	option limit '1000/sec'
+	option family 'ipv6'
+	option target 'ACCEPT'
+
+config rule
+	option name 'Allow-ICMPv6-Forward'
+	option src 'wan'
+	option dest '*'
+	option proto 'icmp'
+	list icmp_type 'echo-request'
+	list icmp_type 'echo-reply'
+	list icmp_type 'destination-unreachable'
+	list icmp_type 'packet-too-big'
+	list icmp_type 'time-exceeded'
+	list icmp_type 'bad-header'
+	list icmp_type 'unknown-header-type'
+	option limit '1000/sec'
+	option family 'ipv6'
+	option target 'ACCEPT'
+
+config rule
+	option name 'Allow-IPSec-ESP'
+	option src 'wan'
+	option dest 'lan'
+	option proto 'esp'
+	option target 'ACCEPT'
+
+config rule
+	option name 'Allow-ISAKMP'
+	option src 'wan'
+	option dest 'lan'
+	option dest_port '500'
+	option proto 'udp'
+	option target 'ACCEPT'
+
+config redirect
+	option name 'Prox-Node1'
+	option src 'wan'
+	option src_dport '8010'
+	option dest 'trusted'
+	option dest_ip '192.168.10.10'
+	option dest_port '8006'
+	option proto 'tcp'
+
+config redirect
+	option name 'Prox-Node2'
+	option src 'wan'
+	option src_dport '8020'
+	option dest 'trusted'
+	option dest_ip '192.168.10.20'
+	option dest_port '8006'
+	option proto 'tcp'
+
+config redirect
+	option name 'Prox-Node3'
+	option src 'wan'
+	option src_dport '8030'
+	option dest 'trusted'
+	option dest_ip '192.168.10.30'
+	option dest_port '8006'
+	option proto 'tcp'
+
+config redirect
+	option name 'Prox-Node4'
+	option src 'wan'
+	option src_dport '8040'
+	option dest 'trusted'
+	option dest_ip '192.168.10.40'
+	option dest_port '8006'
+	option proto 'tcp'
+
+config redirect
+	option name 'Prox-Node5'
+	option src 'wan'
+	option src_dport '8050'
+	option dest 'trusted'
+	option dest_ip '192.168.10.50'
+	option dest_port '8006'
+	option proto 'tcp'
