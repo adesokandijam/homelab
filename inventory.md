@@ -40,6 +40,12 @@
   - RAM: 32GB (upgraded from 16GB)
   - Storage: 1TB SSD (512GB original + 512GB added)
 
+- **BOSGAME P4 Plus**
+  - CPU: AMD Ryzen 7 5825U
+  - RAM: 32GB 
+  - Storage: 1TB SSD
+
+
 ### Workstation
 - **HP Z440**
   - CPU: Intel 12-Core
