@@ -64,7 +64,7 @@ config forwarding
 config rule
 	option name 'Allow-SSH-From-My-Laptop'
 	option src 'wan'
-	option src_ip '192.168.55.201'
+	option src_ip '192.168.55.75'
 	option proto 'tcp'
 	option target 'ACCEPT'
 
