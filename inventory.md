@@ -28,17 +28,17 @@
 - **Lenovo ThinkCentre M720q**
   - CPU: Intel i5-8400T (8th Gen)
   - RAM: 16GB
-  - Storage: 500GB SSD
+  - Storage: 128GB Proxmox OS SSD + 500GB SSD Ceph Distributed Storage
 
 - **HP EliteDesk 800 G4**
   - CPU: Intel i5-8500 @ 3.00GHz (8th Gen)
   - RAM: 16GB (8GB original + 8GB added)
-  - Storage: 512GB NVMe SSD
+  - Storage: 128GB Proxmox OS SSD + 512GB NVMe SSD Ceph Distributed Storage
 
 - **GMKtec NucBox M5 Plus**
   - CPU: AMD Ryzen 7 5825U
   - RAM: 32GB (upgraded from 16GB)
-  - Storage: 1TB SSD (512GB original + 512GB added)
+  - Storage: 1TB SSD (512GB original Proxmox OS SSD + 512GB added Ceph Distributed Storage)
 
 - **BOSGAME P4 Plus**
   - CPU: AMD Ryzen 7 5825U
